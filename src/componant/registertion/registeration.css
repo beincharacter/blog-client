@@ -1,0 +1,21 @@
+body {
+    background-color: aquamarine;
+}
+
+.login-container {
+    display: flex;
+    height: 80vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+}
+
+section {
+    padding: 50px;
+    background-color: lightgreen;
+    border: 1px solid blac
+}
+
+.input{
+    margin-bottom: 50px;
+}
