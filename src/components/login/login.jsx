@@ -7,6 +7,7 @@ import "./login.css"
 
  const Login =() => {
     const [LoginData, setLoginData] = useState({email: "", password: ""});
+    const [err, setError] = useState("")
     const navigate = useNavigate()
     console.log(LoginData)
 
@@ -19,15 +20,16 @@ import "./login.css"
             },
             body: JSON.stringify(LoginData),
           });
-          console.log("res>> " + JSON.stringify(response));
           const data = await response.json();
+          console.log("res>> " + data.response);
           if (response.status === 200) {
             // User is valid, store the token in localStorage
             localStorage.setItem("token", data.token);
             navigate("/posts");
           } else {
             // User is not valid, handle the error
-            console.error(data.message);
+            console.log("failed >>> " + response.status);
+            if (response.status === 400) setError("     Invalid Credential!")
           }
         } catch (error) {
           console.error(error);
@@ -47,7 +49,7 @@ import "./login.css"
                     <input type="password"  onChange={(e) => setLoginData({...LoginData, password: e.target.value})} />
                 </label> <br/>
 
-                <button onClick={() => login()}>Login</button>
+                <button onClick={() => login()}>Login</button> <span style={{color: "red"}}>{err}</span>
 
                 <p>Need to <span className="register-nav" style={{cursor: "pointer", textDecoration: "underline"}} onClick={() => navigate('/register')}>Sign up</span></p>
                 </section>
