@@ -1,0 +1,17 @@
+.create-post-container {
+    display: flex;
+    background-color: aqua;
+    height: 84vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+
+section {
+    height: 40vh;
+    width: 60vw;
+}
+
+.create-post-container > section > label {
+    margin-bottom: 30px;
+}
