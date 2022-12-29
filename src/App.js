@@ -4,6 +4,7 @@ import './App.css';
 import {BrowserRouter , Routes , Route} from "react-router-dom";
 import Register from './components/registertion/registeration';
 import Navbar from './components/post/navigation';
+import CreatePost from './components/post/postCreate';
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
     <Route path='/' element={<Login/>}/>
     <Route path='/register' element={<Register/>} />
     <Route path='/posts' element={<Navbar/>} />
-    {/* <Route path="/create" element={<CreatePost/>}/> */}
+    <Route path="/createpost" element={<CreatePost/>}/>
   </Routes>
   </BrowserRouter>
   );
