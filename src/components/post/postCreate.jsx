@@ -8,10 +8,10 @@ const CreatePost = () => {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  // const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
-  console.log(title, image, author, description);
+  // console.log(title, image, author, description);
 
 
   const handleSubmit = async (event) => {
@@ -23,7 +23,7 @@ const CreatePost = () => {
     formData.append('title', title);
     formData.append('image', image);
     formData.append('description', description);
-    formData.append('author', author);
+    // formData.append('author', author);
 
     // try{
         await fetch('https://blog-server-2zb0.onrender.com/posts', {
@@ -73,8 +73,7 @@ const CreatePost = () => {
                 <label >Description:  
                     <input type="text" onChange={(e) =>  setDescription(e.target.value)} />
                 </label> <br/>
-                <label >Author:  
-                    <input type="text" onChange={(e) =>  setAuthor(e.target.value)} />
+                <label >Author: {localStorage.getItem('name')}
                 </label> <br/>
                 <button onClick={(e) => handleSubmit(e)}>Create</button>
                 </div>

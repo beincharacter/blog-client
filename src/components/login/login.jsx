@@ -13,25 +13,36 @@ import "./login.css"
 
     async function login() {
         try {
-          const response = await fetch("https://blog-server-2zb0.onrender.com/login", {
-          // const response = await fetch("http://localhost:9000/login", {
+          // const response = await fetch("https://blog-server-2zb0.onrender.com/login", {
+          await fetch("https://blog-server-2zb0.onrender.com/login", {
+          // await fetch("http://localhost:9000/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(LoginData),
-          });
-          const data = await response.json();
-          console.log("res>> " + data.response);
-          if (response.status === 200) {
-            // User is valid, store the token in localStorage
+          }).then(res => {
+            return res.json();
+          }).then(data => {
+            console.log(data)
+            localStorage.setItem("name", data.name)
             localStorage.setItem("token", data.token);
-            navigate("/posts");
-          } else {
-            // User is not valid, handle the error
-            console.log("failed >>> " + response.status);
-            if (response.status === 400) setError("     Invalid Credential!")
-          }
+            navigate("/posts")
+          }).catch(e => {
+            console.log("Error: " + e);
+          })
+          // const data = await response.json();
+          // console.log("res>> " + JSON.stringify(response));
+          // if (response.status === 200) {
+            // User is valid, store the token in localStorage
+            // localStorage.setItem("name", data.name)
+            // localStorage.setItem("token", data.token);
+            // navigate("/posts");
+          // } else {
+          //   // User is not valid, handle the error
+          //   console.log("failed >>> " + response.status);
+          //   if (response.status === 400) setError("     Invalid Credential!")
+          // }
         } catch (error) {
           console.error(error);
         }
