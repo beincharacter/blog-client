@@ -16,6 +16,7 @@ const Register = () => {
 
         if(registerationData.name && registerationData.email && registerationData.password)
         await fetch("https://blog-server-2zb0.onrender.com/register", {
+        // await fetch("http://localhost:9000/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
