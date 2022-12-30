@@ -5,10 +5,12 @@ import Header from "../header/header";
 import { useNavigate } from "react-router-dom";
  const Navbar = () => {
     const navigate = useNavigate();
+
+    if(!localStorage.getItem("token")) {
+        navigate("/");
+    }
+
     const [blogData, setdata] = useState([]);
-    // console.log("blogData : "+ JSON.stringify(blogData))
-    // console.log("blogData title : "+ JSON.stringify(blogData.title))
-    // console.log("data : "+ blogData)
 
 
     useEffect(() => {
@@ -19,12 +21,9 @@ import { useNavigate } from "react-router-dom";
         }}).then(res => {
             return res.json();
         }).then(data => {
-            // console.log("in then: " + JSON.stringify(data))
-            // console.log("in then title: " + JSON.stringify(data.title))
-
             setdata(data)
         })
-    }, [])
+    })
 
     const logoutFunc = () => {
         console.log(("Inside logout func"));

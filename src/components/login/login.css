@@ -10,10 +10,8 @@ body {
     align-items: center;
 }
 
-section {
-    padding: 50px;
-    background-color: lightgreen;
-    border: 1px solid blac
+.login-container > section {
+    border: 1px solid black;
 }
 
 .input{
@@ -21,4 +19,16 @@ section {
 }
 .register-nav:hover {
     color: red;
+}
+
+.login-container > section {
+    padding: 50px;
+    background-color: rgb(233, 168, 137);
+    width: 16vw;
+    border: 1px solid black;
+    border-radius: 6px;
+}
+
+.login-container > section > label > input {
+    height: 18px;
 }
