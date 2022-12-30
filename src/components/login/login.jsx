@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import "./login.css"
 
  const Login =() => {
+    const navigate = useNavigate();
     const [LoginData, setLoginData] = useState({email: "", password: ""});
-    const [err, setError] = useState("")
-    const navigate = useNavigate()
+    const [emailErr, setEmailError] = useState("");
+    const [passErr, setPassError] = useState('');
     console.log(LoginData)
 
     async function login() {
@@ -24,25 +25,21 @@ import "./login.css"
           }).then(res => {
             return res.json();
           }).then(data => {
-            console.log(data)
-            localStorage.setItem("name", data.name)
-            localStorage.setItem("token", data.token);
-            navigate("/posts")
+            // console.log(data.message + "status")
+            if(data.status === 400) {
+              setEmailError("wrong email!");
+            } else if(data.status === 401){
+              setEmailError("")
+              setPassError("wrong password!")
+            } else {
+              localStorage.setItem("name", data.name);
+              localStorage.setItem("token", data.token);
+              navigate("/posts");
+            }
+            
           }).catch(e => {
             console.log("Error: " + e);
           })
-          // const data = await response.json();
-          // console.log("res>> " + JSON.stringify(response));
-          // if (response.status === 200) {
-            // User is valid, store the token in localStorage
-            // localStorage.setItem("name", data.name)
-            // localStorage.setItem("token", data.token);
-            // navigate("/posts");
-          // } else {
-          //   // User is not valid, handle the error
-          //   console.log("failed >>> " + response.status);
-          //   if (response.status === 400) setError("     Invalid Credential!")
-          // }
         } catch (error) {
           console.error(error);
         }
@@ -54,14 +51,16 @@ import "./login.css"
             <div className="login-container">
                 <section>
                     <p style={{fontWeight: "bolder"}}>Sign In : </p>
-                <label className="input">Email: <br/>
-                    <input type="text" onChange={(e) => setLoginData({...LoginData, email: e.target.value})} />
+                <label className="input">Email: <span style={{color: "red"}}>{emailErr}</span> <br/> 
+                    <input type="text" onChange={(e) => setLoginData({...LoginData, email: e.target.value})} /> <br/>
+                    
                 </label> <br/>
-                <label className="input">password: <br/>
-                    <input type="password"  onChange={(e) => setLoginData({...LoginData, password: e.target.value})} />
+                <label className="input">password: <span style={{color: "red"}}>{passErr}</span> <br/>
+                    <input type="password"  onChange={(e) => setLoginData({...LoginData, password: e.target.value})} /> <br/>
+                    
                 </label> <br/>
 
-                <button onClick={() => login()}>Login</button> <span style={{color: "red"}}>{err}</span>
+                <button onClick={() => login()}>Login</button> 
 
                 <p>Need to <span className="register-nav" style={{cursor: "pointer", textDecoration: "underline"}} onClick={() => navigate('/register')}>Sign up</span></p>
                 </section>

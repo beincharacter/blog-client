@@ -1,4 +1,4 @@
-body {
+.registeration-container > body {
     background-color: aquamarine;
 }
 
@@ -10,10 +10,10 @@ body {
     align-items: center;
 }
 
-section {
+.registeration-container > section {
     padding: 50px;
     background-color: lightgreen;
-    border: 1px solid blac
+    border: 1px solid black
 }
 
 .input{
