@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
         }}).then(res => {
             return res.json();
         }).then(data => {
-            console.log("in then: " + JSON.stringify(data))
+            // console.log("in then: " + JSON.stringify(data))
             // console.log("in then title: " + JSON.stringify(data.title))
 
             setdata(data)
@@ -48,11 +48,13 @@ import { useNavigate } from "react-router-dom";
                                 <img className="image" src={data.image} height="200px" width="300px" alt="cover" />
                                 <p className="description">{data.description}</p>
                                 <p className="author">by {data.author}</p>
-                                <p className="date" >{data.createdAt}</p>
+                                <p className="date" >{data.date}</p>
+                                <p className="time" >{data.time}</p>
                             </div>
                         </>
                     )
-                })} 
+                }).reverse()
+                } 
             </div>
         </>
     )
