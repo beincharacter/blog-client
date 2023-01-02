@@ -2,12 +2,14 @@ import React from "react";
 import { useState } from "react";
 import Header from "../header/header";
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 import "./login.css"
 
  const Login =() => {
     const navigate = useNavigate();
     const [LoginData, setLoginData] = useState({email: "", password: ""});
+    const [hide, setHide] = useState(true)
     const [emailErr, setEmailError] = useState("");
     const [passErr, setPassError] = useState('');
     console.log(LoginData)
@@ -56,7 +58,10 @@ import "./login.css"
                     
                 </label> <br/>
                 <label className="input">password: <span style={{color: "red"}}>{passErr}</span> <br/>
-                    <input type="password"  onChange={(e) => setLoginData({...LoginData, password: e.target.value})} /> <br/>
+                    <input type={hide ? 'password' : 'text'}  onChange={(e) => setLoginData({...LoginData, password: e.target.value})} />
+                    <span 
+                      style={{marginLeft: '4px'}}
+                    onClick={() => setHide(!hide)}>{hide ? <FaEye/> : <FaEyeSlash/>} </span> <br/>
                     
                 </label> <br/>
 
