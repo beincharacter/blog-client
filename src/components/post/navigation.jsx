@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./navigation.css"
-
 import Header from "../header/header";
 import { useNavigate } from "react-router-dom";
+
  const Navbar = () => {
     const navigate = useNavigate();
 
@@ -11,6 +11,9 @@ import { useNavigate } from "react-router-dom";
     }
 
     const [blogData, setdata] = useState([]);
+    const [isReadMore, setIsReadMore] = useState([]);
+    console.log(isReadMore)
+
 
 
     useEffect(() => {
@@ -23,13 +26,22 @@ import { useNavigate } from "react-router-dom";
         }).then(data => {
             setdata(data)
         })
-    })
+    }, [navigate])
 
     const logoutFunc = () => {
         console.log(("Inside logout func"));
         localStorage.removeItem("token");
         navigate("/")
     }
+
+    function handleRead(e, i) {
+        const newIsReadMore = [...isReadMore];
+        newIsReadMore[i] = !newIsReadMore[i];
+        setIsReadMore(newIsReadMore);
+      }
+      
+
+    
     return (
         <>
             <Header/>
@@ -40,12 +52,34 @@ import { useNavigate } from "react-router-dom";
             </div>
             <div className="content-container">
                 {blogData.map((data, i) => {
-                    return (
+                    isReadMore.push(true)
+                    return ( 
+                        isReadMore[i] ? <div className="content" key={i}>
+                                <b className="title">{data.title}</b> <br/>
+                                <p onClick={(e) => handleRead(e, i)}   
+                                className="description">
+                                    {data.description.length > 200 ?(
+                                        isReadMore[i] ? 
+                                        `${data.description.slice(0, 200)}...read more` : 
+                                        `${data.description}...show less` ) :
+                                        data.description
+                                    }
+                                </p>
+                                <p className="author">by {data.author}</p>
+                                </div> :
                         <>
-                            <div className="content">
+                            <div className="content" key={i}>
                                 <b className="title">{data.title}</b> <br/>
                                 <img className="image" src={data.image} height="200px" width="300px" alt="cover" />
-                                <p className="description">{data.description}</p>
+                                <p onClick={(e) => handleRead(e, i)}  
+                                    className="description">
+                                        {data.description.length > 200 ?(
+                                            isReadMore[i] ? 
+                                            `${data.description.slice(0, 200)}...read more` : 
+                                            `${data.description}...show less` ) :
+                                            data.description
+                                        }
+                                </p>
                                 <p className="author">by {data.author}</p>
                                 <p className="date" >{data.date}</p>
                                 <p className="time" >{data.time}</p>
