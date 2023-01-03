@@ -1,12 +1,10 @@
-import React from "react";
-import { useState } from "react";
-import Header from "../header/header";
-import { useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import React from 'react';
+import { useNavigate } from 'react-router-dom'
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import './Login.css';
+import { useState } from 'react';
 
-import "./login.css"
-
- const Login =() => {
+const LoginPage = () => {
     const navigate = useNavigate();
     const [LoginData, setLoginData] = useState({email: "", password: ""});
     const [hide, setHide] = useState(true)
@@ -46,35 +44,37 @@ import "./login.css"
           console.error(error);
         }
       }
-      
-    return (
-        <>
-            <Header/>
-            <div className="login-container">
-                <section>
-                    <p style={{fontWeight: "bolder"}}>Sign In : </p>
-                <label className="input">Email: <span style={{color: "red"}}>{emailErr}</span> <br/> 
-                    <input type="text" onChange={(e) => setLoginData({...LoginData, email: e.target.value})} /> <br/>
-                    
-                </label> <br/>
-                <label className="input">password: <span style={{color: "red"}}>{passErr}</span> <br/>
-                    <input type={hide ? 'password' : 'text'}  onChange={(e) => setLoginData({...LoginData, password: e.target.value})} />
-                    <span 
-                      style={{marginLeft: '4px'}}
-                    onClick={() => setHide(!hide)}>{hide ? <FaEye/> : <FaEyeSlash/>} </span> <br/>
-                    
-                </label> <br/>
 
-                <button onClick={() => login()}>Login</button> 
-
-                <p>Need to <span className="register-nav" style={{cursor: "pointer", textDecoration: "underline"}} onClick={() => navigate('/register')}>Sign up</span></p>
-                </section>
-
+  return (
+    <div className="login-container" style={{ height: '100vh', width: '100vw' }}>
+       <div className='form-container'>
+            <div className='form-header'>Login</div>
+            <div className='username'>
+                <input className='username-input' type="text" 
+                onChange={(e) => setLoginData({...LoginData, email: e.target.value})}
+                 placeholder='user name'  />
+                 <div style={{color: "red"}}>{emailErr}</div>
             </div>
-            
+            <div className='password'>
+                <input className='password-input'
+                 onChange={(e) => setLoginData({...LoginData, password: e.target.value})}
+                 type={hide ? 'password' : 'text'} placeholder='password'  />
+                <span className='pointer' onClick={() => setHide(!hide)} 
+                        style={{paddingLeft: '8px'}} >
+                        {hide ? <FaEye size='1.1em' /> : 
+                        <FaEyeSlash size='1.1em'/> }
+                </span>
+                <div style={{color: "red"}}>{passErr}</div>
+            </div>
+            <div className='btn'>
+                <button onClick={() => login()} className='btn-login'>Login</button>
+            </div>
+            <div className='toggle-btn'>
+                Don't have an account?  <span className='signup-btn' onClick={()=> navigate('/register')}>SignUp</span>
+            </div>
+       </div>
+    </div>
+  );
+}
 
-        </>
-    )
- }
-
- export default Login;
+export default LoginPage;
