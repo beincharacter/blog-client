@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import './Login.css';
+import './login.css';
 import { useState } from 'react';
 
 const LoginPage = () => {

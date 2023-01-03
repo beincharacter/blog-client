@@ -4,7 +4,7 @@ import {BrowserRouter , Routes , Route} from "react-router-dom";
 import Register from './components/registertion/registeration';
 import Navbar from './components/post/navigation';
 import CreatePost from './components/post/postCreate';
-import LoginPage from './components/Login/Login'
+import LoginPage from './components/login/login'
 
 
 function App() {
