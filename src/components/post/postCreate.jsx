@@ -132,7 +132,7 @@ const CreatePost = () => {
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colSpan="2">
                 <button className="create-btn" onClick={(e) => handleSubmit(e)}>Create</button>
             </td>
         </tr>
