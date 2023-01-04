@@ -8,6 +8,11 @@
   background-size: cover;
 }
 
+.loader {
+  position: absolute;
+  height: 100px;
+}
+
 .form-container {
   padding: 2%;
 }
