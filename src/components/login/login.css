@@ -29,6 +29,7 @@
   .login-container > .form-container {
     height: 60vh;
     width: 100vw;
+    margin: 15px;
   }
   .login-form {
     width: 100%; 
