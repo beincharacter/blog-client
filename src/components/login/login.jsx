@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './login.css';
 import { useState } from 'react';
+import fetching from '../../images/fetch.gif'
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -10,9 +11,11 @@ const LoginPage = () => {
     const [hide, setHide] = useState(true)
     const [emailErr, setEmailError] = useState("");
     const [passErr, setPassError] = useState('');
+    const [loading, setLoading] = useState(false);
     console.log(LoginData)
 
     async function login() {
+      setLoading(true);
         try {
           // const response = await fetch("https://blog-server-2zb0.onrender.com/login", {
           await fetch("https://blog-server-2zb0.onrender.com/login", {
@@ -26,6 +29,7 @@ const LoginPage = () => {
             return res.json();
           }).then(data => {
             // console.log(data.message + "status")
+            setLoading(false);
             if(data.status === 400) {
               setEmailError("wrong email!");
             } else if(data.status === 401){
@@ -38,15 +42,18 @@ const LoginPage = () => {
             }
             
           }).catch(e => {
+            setLoading(false);
             console.log("Error: " + e);
           })
         } catch (error) {
+          setLoading(false);
           console.error(error);
         }
       }
 
   return (
     <div className="login-container" style={{ height: '100vh', width: '100vw' }}>
+    {loading ? <img className='loader' src={fetching} alt='fetching' /> : ''}
        <div className='form-container'>
             <div className='form-header'>Login</div>
             <div className='username'>

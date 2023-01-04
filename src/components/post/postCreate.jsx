@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../header/header";
 import "./postCreate.css"
 import { useNavigate } from 'react-router-dom';
+import fetching from '../../images/fetch.gif'
 
 const CreatePost = () => {
   
@@ -11,11 +12,13 @@ const CreatePost = () => {
   // const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
   // console.log(title, image, author, description);
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     console.log(("In handleSubmit>>> "));
 
     
@@ -37,8 +40,10 @@ const CreatePost = () => {
       .then(response => response.json())
       .then(data => {
         console.log(data);
+        setLoading(false);
         navigate("/posts")
       }).catch(e => {
+        setLoading(false);
         console.log("err>>>> " + e);
       });
 
@@ -52,33 +57,87 @@ const CreatePost = () => {
   
   };
 
+  const logoutFunc = () => {
+    console.log(("Inside logout func"));
+    localStorage.removeItem("token");
+    navigate("/")
+  }
+
 
 
     return (
         <>
             <Header/>
+            <div className="navbar" style={{float: "right", marginLeft: "10px"}}>
+                <span style={{paddingRight: "50px"}} onClick={() => navigate("/posts")}>Home</span>
+                <span style={{paddingRight: "50px"}} onClick={() => navigate("/createpost")}>Create</span>
+                <span style={{paddingRight: "50px"}} onClick={() => logoutFunc()}>Logout</span>
+            </div>
             <div className="create-post-container">
-                <section>
+              {loading ? <img className="loader" src={fetching} alt='loading...' /> : ''}
+                {/* <section className="post-create-box">
                     <div>
                 <label >Title:  
-                    <input type="text" onChange={(e) => setTitle(e.target.value)} />
+                    <input className="create-text" type="text" onChange={(e) => setTitle(e.target.value)} />
                 </label> <br/>
                 </div>
                  <div>
                 <label >photo:  
-                    <input type="file" onChange={(e) =>  setImage(e.target.files[0])} />
+                    <input className="create-img" type="file" onChange={(e) =>  setImage(e.target.files[0])} />
                 </label> <br/>
                 </div>
                  <div>
                 <label >Description:  
-                    <input type="text" onChange={(e) =>  setDescription(e.target.value)} />
+                    <input className="create-desc" type="text" onChange={(e) =>  setDescription(e.target.value)} />
                 </label> <br/>
                 <label >Author: {localStorage.getItem('name')}
                 </label> <br/>
-                <button onClick={(e) => handleSubmit(e)}>Create</button>
+                <button className="create-btn" onClick={(e) => handleSubmit(e)}>Create</button>
                 </div>
                  
-                </section>
+                </section> */}
+
+<section className="post-create-box">
+    <table>
+        <tr>
+            <td>
+                <label>Title:</label>
+            </td>
+            <td>
+                <input className="create-text" type="text" onChange={(e) => setTitle(e.target.value)} />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Photo:</label>
+            </td>
+            <td>
+                <input className="create-img" type="file" onChange={(e) =>  setImage(e.target.files[0])} />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Description:</label>
+            </td>
+            <td>
+                <input className="create-desc" type="text" onChange={(e) =>  setDescription(e.target.value)} />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Author:</label>
+            </td>
+            <td>
+                {localStorage.getItem('name')}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button className="create-btn" onClick={(e) => handleSubmit(e)}>Create</button>
+            </td>
+        </tr>
+    </table>
+</section>
             </div>
             
         </>
